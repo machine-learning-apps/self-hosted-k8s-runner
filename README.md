@@ -90,7 +90,7 @@ You must set the below variables before deploying your self-hosted Actions runne
 
 ####  5.1.2. <a name='OptionalVariables'></a>Optional Variables
 - `ACTIONS_IMAGE_NAME`: (optional)
-  - the Docker Image that references the location of the image of your self-hosted runner.  If this is a private repository, your k8s cluster must have the ability to pull from this registry.  Furthermore, if your private registry requires a login, you may have to modify [deployment.yml](./deployment.yml) to include an [ImagePullSecret](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/), which is outside the scope of this tutorial.  If no value is specified, this defaults to `github/k8s-actions-runner:latest`
+  - the Docker Image that references the location of the image of your self-hosted runner.  If this is a private repository, your k8s cluster must have the ability to pull from this registry.  Furthermore, if your private registry requires a login, you may have to modify [deployment.yml](./deploy_runner/deployment.yml) to include an [ImagePullSecret](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/), which is outside the scope of this tutorial.  If no value is specified, this defaults to `github/k8s-actions-runner:latest`
 - `ACTIONS_DEPLOY_NAME`: (optional) 
   - you can name this anything you want, you need a unique name for each repo.  If this is not specified the execution script will set this to `actions-runner-$ACTIONS_GITHUB_REPO`, with the forward slash `/` replaced with a dash `-`.
 

@@ -54,6 +54,7 @@ ___
 **Prerequisites**: These instructions assume:
   - You have [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) installed and configured to access a kubernetes cluster where you wish to instantiate self-hosted runners.
   - You have sufficent permissions to create resources (namespaces, deployments, secrets, etc.) in this cluster.
+  - Familiarity with kubernetes, especially with debugging workloads and inspecting logs.
 
 ##  1. Install `envsubst`
 

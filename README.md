@@ -38,7 +38,7 @@ ___
 
 **We have a pre-built Docker image hosted at [github/k8s-actions-runner](https://hub.docker.com/r/github/k8s-actions-runner)**, that uses docker-in-docker to orchestrate all the necessary dependencies for a self hosted runner.
 
-This image is [tagged](https://hub.docker.com/r/github/k8s-actions-runner/tags) with the version of the [actions/runner release](https://github.com/actions/runner/releases/).  For example, the image ` github/k8s-actions-runner:2.263.0` corresponds to the [actions/runner v2.263.0 release](https://github.com/actions/runner/releases/tag/v2.263.0).
+This image is [tagged](https://hub.docker.com/r/github/k8s-actions-runner/tags) with the version of the [actions/runner release](https://github.com/actions/runner/releases/).  For example, the image ` github/k8s-actions-runner:2.263.0` corresponds to the [actions/runner v2.263.0](https://github.com/actions/runner/releases/tag/v2.263.0) release.  Furthermore, the latest release is also tagged with `latest`.
 
 If you wish to customize the Actions runner with additional dependencies you can edit the [Dockerfile](./Dockerfile).  If you customize the docker image, you need to build and push the container to your Docker repository.
 

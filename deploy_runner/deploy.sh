@@ -2,6 +2,8 @@
 # This is a script to deploy the k8s self-hosted runner
 
 set -e
+cd $(dirname "$0")
+
 function check_env() {
     if [ -z $(eval echo "\$$1") ]; then
         echo "Environment Variable $1 not found.  Exiting..."

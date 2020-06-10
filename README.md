@@ -65,7 +65,7 @@ You will need a cli tool called `envsubst`.  You can [install envsubst](https://
 
 ##  2. Setup Your K8s Cluster For Actions
 
-:alert: **If you are sharing a cluster with others that have already setup a self-hosted Actions runner you can probably skip this step.**
+**If you are sharing a cluster with others that have already setup a self-hosted Actions runner you can probably skip this step.**
 
 The scripts in this repo will use a k8s namespace called `actions`.  If this namespace is not available it will be created for you.
 

@@ -1,3 +1,5 @@
+![](https://github.com/machine-learning-apps/self-hosted-k8s-runner/workflows/Update-Image/badge.svg)
+
 # Create A Self-Hosted Actions Runner On Your Kubernetes Cluster
 
 <!-- vscode-markdown-toc -->

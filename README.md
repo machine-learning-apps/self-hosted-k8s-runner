@@ -62,7 +62,7 @@ You only need to do this once and not for each self-hosted runner you create.
 
 ###  3.1. <a name='CreateAGitHubPersonalAccessToken'></a>Create A GitHub Personal Access Token
 
-** Note: you should only have to do this once.  You should use a service account, not a personal account as this will be used to register your runner with your repositories.**
+**Note: you should only have to do this once.  You should use a service account, not a personal account as this will be used to register your runner with your repositories.**
 
 Create a [Personal Access Token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line). From the [documentation](https://developer.github.com/v3/actions/self_hosted_runners/), "Access tokens require repo scope for private repos and public_repo scope for public repos".
 

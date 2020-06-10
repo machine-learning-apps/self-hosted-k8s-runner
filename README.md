@@ -63,7 +63,9 @@ You will need a cli tool called `envsubst`.  You can [install envsubst](https://
 
 ##  4. <a name='SetupYourK8sClusterForActions'></a>Setup Your K8s Cluster For Actions
 
-We will use a namespace called `actions` throughout this tutorial.  If you don't have this namespace, you can create it with `kubectl create namespace actions`. **Note: you only need to do this once per cluster**
+:warning: **If you are sharing a cluster with others that have already setup a self-hosted Actions runner you should skip this step** :warning:
+
+We will use a namespace called `actions` throughout this tutorial.  If you don't have this namespace, you can create it with `kubectl create namespace actions`. **You only need to do this once per cluster.**
 
 1. Create a namespace called `actions` if it does not exist.  You can list your available namespaces with `kubectl get namespaces`.  You can create this namespace with `kubectl create namespace actions`.
 

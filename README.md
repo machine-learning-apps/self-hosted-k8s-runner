@@ -1,4 +1,4 @@
-![](https://github.com/machine-learning-apps/self-hosted-k8s-runner/workflows/Update-Image/badge.svg)
+![](https://github.com/machine-learning-apps/self-hosted-k8s-runner/workflows/Update-Image/badge.svg) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 # Create A Self-Hosted Actions Runner On Your Kubernetes Cluster
 

@@ -1,0 +1,96 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: self-hosted-runner-creds
+type: Opaque
+stringData:
+  ACTIONS_RUNNER_TOKEN: $ACTIONS_PAT
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: actions-runner-$ACTIONS_DEPLOY_NAME
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: self-hosted-runner
+  template:
+    metadata:
+      labels:
+        app: self-hosted-runner
+    spec:
+      containers:
+      - name: self-hosted-runner
+        image: github/k8s-actions-runner:2.263.0
+        imagePullPolicy: Always
+        env:
+          - name: GITHUB_REPO
+            value: $ACTIONS_GITHUB_REPO
+          - name: TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: self-hosted-runner-creds
+                key: ACTIONS_RUNNER_TOKEN
+          - name: DOCKER_HOST
+            value: 127.0.0.1
+          - name: DOCKER_BUILDKIT
+            value: "1"
+        lifecycle:
+          preStop:
+            exec:
+              command:
+                [
+              '/bin/bash',
+              '-c',
+              'RUNNER_ALLOW_RUNASROOT=1 ./config.sh remove --token $(curl -sS --data "" -H "Authorization: Bearer $TOKEN" https://api.github.com/repos/$GITHUB_REPO/actions/runners/remove-token | jq -r .token)'
+                ]
+        resources:
+            limits:
+              memory: "512Mi"
+              cpu: "250m"
+      # Docker-in-Docker not recommended for production
+      - name: dind
+        image: docker:18.09-dind
+        resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "250m"
+        securityContext:
+          privileged: true
+        volumeMounts:
+          - name: dind-storage
+            mountPath: /var/lib/docker
+      volumes:
+        - name: dind-storage
+          emptyDir: {}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: actions
+  namespace: actions
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: actions
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: actions
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: actions
+  namespace: actions
+rules:
+- apiGroups:
+  - '*'
+  resources:
+  - '*'
+  verbs:
+  - '*'

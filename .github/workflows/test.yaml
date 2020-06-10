@@ -1,0 +1,19 @@
+name: Test
+on: push
+
+env:
+  GH_RUNNER_VERSION: "2.263.0"
+
+jobs:     
+  build-site:
+    runs-on: self-hosted
+    steps:
+
+    - name: build container
+      run: | 
+        docker build --build-arg GH_RUNNER_VERSION=$GH_RUNNER_VERSION -t github/k8s-actions-runner:latest -t github/k8s-actions-runner:$GH_RUNNER_VERSION .
+
+    - name: push-container
+      run: |
+        echo "todo"
+ 

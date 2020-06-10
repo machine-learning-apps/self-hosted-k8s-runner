@@ -14,7 +14,6 @@ function check_env() {
 export DEFAULT_IMAGE_NAME="github/k8s-actions-runner:latest"
 
 check_env "ACTIONS_GITHUB_REPO"
-check_env "ACTIONS_PAT"
 
 if [ -z "$ACTIONS_DEPLOY_NAME" ]; then
     export ACTIONS_DEPLOY_NAME=`echo $ACTIONS_GITHUB_REPO | sed "s/\//-/"`
@@ -27,5 +26,5 @@ if [ -z "$ACTIONS_IMAGE_NAME" ]; then
 fi
 
 # Refresh Deployment
-envsubst "\$ACTIONS_PAT\$ACTIONS_GITHUB_REPO\$ACTIONS_IMAGE_NAME\$ACTIONS_DEPLOY_NAME" < deployment.yml | kubectl -n actions apply -f -
+envsubst "\$ACTIONS_GITHUB_REPO\$ACTIONS_IMAGE_NAME\$ACTIONS_DEPLOY_NAME" < deployment.yml | kubectl -n actions apply -f -
 

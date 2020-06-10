@@ -5,13 +5,14 @@
 <!-- vscode-markdown-toc -->
 * 1. [Why?](#Why)
 * 2. [Customize Your Self Hosted Runner (Optional)](#CustomizeYourSelfHostedRunnerOptional)
-* 3. [Deploy Your Self Hosted Runner](#DeployYourSelfHostedRunner)
-	* 3.1. [Create A GitHub Personal Access Token](#CreateAGitHubPersonalAccessToken)
-	* 3.2. [Install `envsubst`](#Installenvsubst)
-	* 3.3. [Set Environment Variables](#SetEnvironmentVariables)
-	* 3.4. [Deploy Self Hosted Runner](#DeploySelfHostedRunner)
-	* 3.5. [Enjoy your self-hosted runner](#Enjoyyourself-hostedrunner)
-* 4. [Delete An Actions Runner](#DeleteAnActionsRunner)
+* 3. [Install `envsubst`](#Installenvsubst)
+* 4. [Setup Your K8s Cluster For Actions](#SetupYourK8sClusterForActions)
+* 5. [Deploy A Self Hosted Runner](#DeployASelfHostedRunner)
+	* 5.1. [Set Environment Variables](#SetEnvironmentVariables)
+		* 5.1.1. [Required Varaibles](#RequiredVaraibles)
+		* 5.1.2. [Optional Variables](#OptionalVariables)
+	* 5.2. [Deploy Self Hosted Runner](#DeploySelfHostedRunner)
+* 6. [Delete An Actions Runner](#DeleteAnActionsRunner)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -53,35 +54,41 @@ docker push $ACTIONS_IMAGE_NAME
 ```
 ___
 
-##  3. <a name='DeployYourSelfHostedRunner'></a>Deploy Your Self Hosted Runner
+##  3. <a name='Installenvsubst'></a>Install `envsubst`
 
-We will use a namespace called `actions` throughout this tutorial.  If you don't have this namespace, you can create it with `kubectl create namespace actions`.  
-
-You only need to do this once and not for each self-hosted runner you create. 
-
-
-###  3.1. <a name='CreateAGitHubPersonalAccessToken'></a>Create A GitHub Personal Access Token
-
-**Note: you should only have to do this once.  You should use a service account, not a personal account as this will be used to register your runner with your repositories.**
-
-Create a [Personal Access Token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line). From the [documentation](https://developer.github.com/v3/actions/self_hosted_runners/), "Access tokens require repo scope for private repos and public_repo scope for public repos".
-
-###  3.2. <a name='Installenvsubst'></a>Install `envsubst`
-
-You will need a cli tool called `envsubst` for this step.  You can [install envsubst](https://command-not-found.com/envsubst):
+You will need a cli tool called `envsubst`.  You can [install envsubst](https://command-not-found.com/envsubst) like this:
 
 - on mac: `brew install gettext`
 - on ubuntu: `apt-get install gettext-base`
 
-###  3.3. <a name='SetEnvironmentVariables'></a>Set Environment Variables
+##  4. <a name='SetupYourK8sClusterForActions'></a>Setup Your K8s Cluster For Actions
 
-#### Required Varaibles
-- `ACTIONS_PAT`: 
-  - this is the personal access token with public and private repo scope. 
+We will use a namespace called `actions` throughout this tutorial.  If you don't have this namespace, you can create it with `kubectl create namespace actions`. **Note: you only need to do this once per cluster**
+
+1. Create a namespace called `actions` if it does not exist.  You can list your available namespaces with `kubectl get namespaces`.  You can create this namespace with `kubectl create namespace actions`.
+
+2. Create a [Personal Access Token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line). From the [documentation](https://developer.github.com/v3/actions/self_hosted_runners/), "Access tokens require repo scope for private repos and public_repo scope for public repos".  **Note: you should only have to do this once per cluster.  You should use a service account, not a personal account as this will be used to register your runner with your repositories.**  Store your PAT in an enviornment variable named `ACTIONS_PAT`.  You can do this in the terminal like so:
+
+    > export ACTIONS_PAT={YOUR_PAT}
+
+3. Apply these secrets to your K8s cluster, along with role bindings to the `actions` namespace:
+
+    > envsubst "\$ACTIONS_PAT" < k8s_setup/authorize.yml | kubectl -n actions apply -f -
+
+
+##  5. <a name='DeployASelfHostedRunner'></a>Deploy A Self Hosted Runner
+ 
+
+###  5.1. <a name='SetEnvironmentVariables'></a>Set Environment Variables
+
+You must set the below variables before deploying your self-hosted Actions runner:
+
+####  5.1.1. <a name='RequiredVaraibles'></a>Required Varaibles
+
 - `ACTIONS_GITHUB_REPO`: 
   - this is the GitHub repository in the form of orginization/repository.  For example, a valid value is `github/semantic` which refers to [this repo](https://github.com/github/semantic).
 
-#### Optional Variables
+####  5.1.2. <a name='OptionalVariables'></a>Optional Variables
 - `ACTIONS_IMAGE_NAME`: (optional)
   - the Docker Image that references the location of the image of your self-hosted runner.  If this is a private repository, your k8s cluster must have the ability to pull from this registry.  Furthermore, if your private registry requires a login, you may have to modify [deployment.yml](./deployment.yml) to include an [ImagePullSecret](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/), which is outside the scope of this tutorial.  If no value is specified, this defaults to `github/k8s-actions-runner:latest`
 - `ACTIONS_DEPLOY_NAME`: (optional) 
@@ -90,8 +97,6 @@ You will need a cli tool called `envsubst` for this step.  You can [install envs
 You can set your environment variables in the terminal like this:
 
 ```bash
-export ACTIONS_PAT={YOUR_PAT}
-
 # example: "github/semantic"
 export ACTIONS_GITHUB_REPO={Your_Org}/{Your Repo}
 
@@ -99,13 +104,11 @@ export ACTIONS_GITHUB_REPO={Your_Org}/{Your Repo}
 export ACTIONS_IMAGE_NAME={Your Image Name}
 ```
 
-###  3.4. <a name='DeploySelfHostedRunner'></a>Deploy Self Hosted Runner
+###  5.2. <a name='DeploySelfHostedRunner'></a>Deploy Self Hosted Runner
 
 Run this from the terminal:
 
-> ./deploy.sh
-
-###  3.5. <a name='Enjoyyourself-hostedrunner'></a>Enjoy your self-hosted runner
+> ./deploy_runner/deploy.sh
 
 You can check the status of your runner with
 
@@ -113,7 +116,7 @@ You can check the status of your runner with
 
 ___
 
-##  4. <a name='DeleteAnActionsRunner'></a>Delete An Actions Runner
+##  6. <a name='DeleteAnActionsRunner'></a>Delete An Actions Runner
 
 1. See your runners, take note of the deployment names you want to shut down.
 

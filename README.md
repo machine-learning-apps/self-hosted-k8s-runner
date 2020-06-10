@@ -3,16 +3,17 @@
 # Create A Self-Hosted Actions Runner On Your Kubernetes Cluster
 
 <!-- vscode-markdown-toc -->
-* 1. [Why?](#Why)
-* 2. [Customize Your Self Hosted Runner (Optional)](#CustomizeYourSelfHostedRunnerOptional)
-* 3. [Install `envsubst`](#Installenvsubst)
-* 4. [Setup Your K8s Cluster For Actions](#SetupYourK8sClusterForActions)
-* 5. [ Deploy A Self Hosted Runner](#DeployASelfHostedRunner)
-	* 5.1. [Set Environment Variables](#SetEnvironmentVariables)
-		* 5.1.1. [Required Varaibles](#RequiredVaraibles)
-		* 5.1.2. [Optional Variables](#OptionalVariables)
-	* 5.2. [Deploy](#Deploy)
-* 6. [Delete An Actions Runner](#DeleteAnActionsRunner)
+* [Motivation](#Motivation)
+* [Optional: Customize Your Self Hosted Runner](#Optional:CustomizeYourSelfHostedRunner)
+* [Setup Instructions](#SetupInstructions)
+* 1. [Install `envsubst`](#Installenvsubst)
+* 2. [ Setup Your K8s Cluster For Actions](#SetupYourK8sClusterForActions)
+* 3. [ Deploy A Self Hosted Runner](#DeployASelfHostedRunner)
+	* 3.1. [Set Environment Variables](#SetEnvironmentVariables)
+		* 3.1.1. [Required Varaibles](#RequiredVaraibles)
+		* 3.1.2. [Optional Variables](#OptionalVariables)
+	* 3.2. [Deploy](#Deploy)
+* 4. [Delete An Actions Runner](#DeleteAnActionsRunner)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -21,7 +22,7 @@
 <!-- /vscode-markdown-toc -->
 
 
-##  1. <a name='Why'></a>Why?
+# Motivation
 
 [GitHub Actions](https://github.com/features/actions) allow you to use [self hosted runners](https://help.github.com/en/actions/hosting-your-own-runners/about-self-hosted-runners).  From the docs:
 
@@ -33,7 +34,7 @@ This project inherits from [github/self-hosted-runners-anthos](https://github.co
 
 ___
 
-##  2. <a name='CustomizeYourSelfHostedRunnerOptional'></a>Customize Your Self Hosted Runner (Optional)
+## <a name='Optional:CustomizeYourSelfHostedRunner'></a>Optional: Customize Your Self Hosted Runner
 
 **Note: you only need to do this if you wish to customize your Actions runner.  Otherwhise, you can proceed to step 2**. I 
 
@@ -54,14 +55,16 @@ docker push $ACTIONS_IMAGE_NAME
 ```
 ___
 
-##  3. <a name='Installenvsubst'></a>Install `envsubst`
+# Setup Instructions
+
+##  1. <a name='Installenvsubst'></a>Install `envsubst`
 
 You will need a cli tool called `envsubst`.  You can [install envsubst](https://command-not-found.com/envsubst) like this:
 
 - on mac: `brew install gettext`
 - on ubuntu: `apt-get install gettext-base`
 
-##  4. <a name='SetupYourK8sClusterForActions'></a>Setup Your K8s Cluster For Actions
+##  2. <a name='SetupYourK8sClusterForActions'></a> Setup Your K8s Cluster For Actions
 
 :warning: **If you are sharing a cluster with others that have already setup a self-hosted Actions runner you should skip this step** :warning:
 
@@ -78,19 +81,19 @@ We will use a namespace called `actions` throughout this tutorial.  If you don't
     > envsubst "\$ACTIONS_PAT" < k8s_setup/authorize.yml | kubectl -n actions apply -f -
 
 
-##  5. <a name='DeployASelfHostedRunner'></a> Deploy A Self Hosted Runner
+##  3. <a name='DeployASelfHostedRunner'></a> Deploy A Self Hosted Runner
  
 
-###  5.1. <a name='SetEnvironmentVariables'></a>Set Environment Variables
+###  3.1. <a name='SetEnvironmentVariables'></a>Set Environment Variables
 
 You must set the below variables before deploying your self-hosted Actions runner:
 
-####  5.1.1. <a name='RequiredVaraibles'></a>Required Varaibles
+####  3.1.1. <a name='RequiredVaraibles'></a>Required Varaibles
 
 - `ACTIONS_GITHUB_REPO`: 
   - this is the GitHub repository in the form of orginization/repository.  For example, a valid value is `github/semantic` which refers to [this repo](https://github.com/github/semantic).
 
-####  5.1.2. <a name='OptionalVariables'></a>Optional Variables
+####  3.1.2. <a name='OptionalVariables'></a>Optional Variables
 - `ACTIONS_IMAGE_NAME`: (optional)
   - the Docker Image that references the location of the image of your self-hosted runner.  If this is a private repository, your k8s cluster must have the ability to pull from this registry.  Furthermore, if your private registry requires a login, you may have to modify [deployment.yml](./deploy_runner/deployment.yml) to include an [ImagePullSecret](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/), which is outside the scope of this tutorial.  If no value is specified, this defaults to `github/k8s-actions-runner:latest`
 - `ACTIONS_DEPLOY_NAME`: (optional) 
@@ -106,7 +109,7 @@ export ACTIONS_GITHUB_REPO={Your_Org}/{Your Repo}
 export ACTIONS_IMAGE_NAME={Your Image Name}
 ```
 
-###  5.2. <a name='Deploy'></a>Deploy
+###  3.2. <a name='Deploy'></a>Deploy
 
 Run this from the terminal:
 
@@ -118,7 +121,7 @@ You can check the status of your runner with
 
 ___
 
-##  6. <a name='DeleteAnActionsRunner'></a>Delete An Actions Runner
+##  4. <a name='DeleteAnActionsRunner'></a>Delete An Actions Runner
 
 1. See your runners, take note of the deployment names you want to shut down.
 

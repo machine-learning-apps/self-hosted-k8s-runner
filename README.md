@@ -7,11 +7,11 @@
 * 2. [Customize Your Self Hosted Runner (Optional)](#CustomizeYourSelfHostedRunnerOptional)
 * 3. [Install `envsubst`](#Installenvsubst)
 * 4. [Setup Your K8s Cluster For Actions](#SetupYourK8sClusterForActions)
-* 5. [Deploy A Self Hosted Runner](#DeployASelfHostedRunner)
+* 5. [ Deploy A Self Hosted Runner](#DeployASelfHostedRunner)
 	* 5.1. [Set Environment Variables](#SetEnvironmentVariables)
 		* 5.1.1. [Required Varaibles](#RequiredVaraibles)
 		* 5.1.2. [Optional Variables](#OptionalVariables)
-	* 5.2. [Deploy Self Hosted Runner](#DeploySelfHostedRunner)
+	* 5.2. [Deploy](#Deploy)
 * 6. [Delete An Actions Runner](#DeleteAnActionsRunner)
 
 <!-- vscode-markdown-toc-config
@@ -76,7 +76,7 @@ We will use a namespace called `actions` throughout this tutorial.  If you don't
     > envsubst "\$ACTIONS_PAT" < k8s_setup/authorize.yml | kubectl -n actions apply -f -
 
 
-##  5. <a name='DeployASelfHostedRunner'></a>Deploy A Self Hosted Runner
+##  5. <a name='DeployASelfHostedRunner'></a> Deploy A Self Hosted Runner
  
 
 ###  5.1. <a name='SetEnvironmentVariables'></a>Set Environment Variables
@@ -104,7 +104,7 @@ export ACTIONS_GITHUB_REPO={Your_Org}/{Your Repo}
 export ACTIONS_IMAGE_NAME={Your Image Name}
 ```
 
-###  5.2. <a name='DeploySelfHostedRunner'></a>Deploy Self Hosted Runner
+###  5.2. <a name='Deploy'></a>Deploy
 
 Run this from the terminal:
 

@@ -16,7 +16,7 @@
 			- [3.1.1. Required Varaibles](#311-required-varaibles)
 			- [3.1.2. Optional Variables](#312-optional-variables)
 		- [3.2. Deploy](#32-deploy)
-- [Delete An Actions Runner](#delete-an-actions-runner)
+	- [Delete An Actions Runner](#delete-an-actions-runner)
 
 <!-- /TOC -->
 
@@ -116,9 +116,9 @@ You can check the status of your runner with
 
 ___
 
-#  Delete An Actions Runner
+##  Delete An Actions Runner
 
-1. See your runners, take note of the deployment names you want to shut down.
+1. To see your runners, take note of the deployment names you want to shut down.
 
 > kubectl -n actions get deploy
 

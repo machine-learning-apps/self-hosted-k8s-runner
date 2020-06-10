@@ -73,7 +73,7 @@ The scripts in this repo will use a k8s namespace called `actions`.  If this nam
 
 Store your PAT in an enviornment variable named `ACTIONS_PAT`.  You can do this in the terminal like so:
 
-    > export ACTIONS_PAT={YOUR_PAT}
+    > export ACTIONS_PAT=<YOUR_PAT>
 
 2. Store these secrets to your K8s cluster, along with role bindings to the `actions` namespace:
 
@@ -106,8 +106,8 @@ You must set the below variables before deploying your self-hosted Actions runne
 You can set your environment variables in the terminal like this:
 
 ```bash
-export ACTIONS_GITHUB_REPO={Your_Org}/{Your Repo} # ex: "github/semantic"
-export ACTIONS_IMAGE_NAME={Your Image Name} # ex: "github/k8s-actions-runner:2.263.0"
+export ACTIONS_GITHUB_REPO=<Your_Org>/<Your Repo> # ex: "github/semantic"
+export ACTIONS_IMAGE_NAME=<Your Image Name> # ex: "github/k8s-actions-runner:2.263.0"
 ```
 
 ###  3.2. Deploy

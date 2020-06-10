@@ -26,10 +26,9 @@
 
 > Self-hosted runners offer more control of hardware, operating system, and software tools than GitHub-hosted runners provide. With self-hosted runners, you can choose to create a custom hardware configuration with more processing power or memory to run larger jobs, install software available on your local network, and choose an operating system not offered by GitHub-hosted runners. Self-hosted runners can be physical, virtual, in a container, on-premises, or in a cloud.
 
-This repository shows **how to run a self hosted runner in a Kubernetes cluster**, which is useful if your Actions runner needs to create resources or update deployments.  This is also helpful for integration with cloud-native machine learning pipelines with projects like [Kubeflow](https://www.kubeflow.org/) or [Argo](https://argoproj.github.io/).  
+This repository shows **how to run a self hosted runner in a Kubernetes cluster**, which is useful if your Actions runner needs to create resources or update deployments.  
 
-This project builds upon [github-developer/self-hosted-runners-anthos](https://github.com/github-developer/self-hosted-runners-anthos).  We use docker-in-docker in order to accomplish instantiation of a self-hosted runner on kubernetes.
-
+This project builds upon [github-developer/self-hosted-runners-anthos](https://github.com/github-developer/self-hosted-runners-anthos), which uses docker-in-docker in order to  instantiate a self-hosted runner on kubernetes.
 ___
 
 # Optional: Customize Your Self Hosted Runner

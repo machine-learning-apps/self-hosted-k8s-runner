@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: self-hosted-runner
-        image: github/k8s-actions-runner:2.263.0
+        image: $ACTIONS_IMAGE_NAME
         imagePullPolicy: Always
         env:
           - name: GITHUB_REPO

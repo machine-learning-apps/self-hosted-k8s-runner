@@ -47,7 +47,8 @@ This image is [tagged](https://hub.docker.com/r/github/k8s-actions-runner/tags) 
 If you wish to customize the Actions runner with additional dependencies you can edit the [Dockerfile](./Dockerfile).  If you customize the docker image, you need to build and push the container to your Docker repository.
 
 ```bash
-# Refresh Docker Image
+# Build Docker Image For Custom Runner (Optional)
+export ACTIONS_IMAGE_NAME="your_docker_repo/your_image_name"
 docker build -t $ACTIONS_IMAGE_NAME .
 docker push $ACTIONS_IMAGE_NAME
 ```
@@ -64,19 +65,17 @@ You will need a cli tool called `envsubst`.  You can [install envsubst](https://
 
 ##  2. Setup Your K8s Cluster For Actions
 
-:warning: **If you are sharing a cluster with others that have already setup a self-hosted Actions runner you should skip this step** :warning:
+:alert: **If you are sharing a cluster with others that have already setup a self-hosted Actions runner you can probably skip this step.**
 
-We will use a namespace called `actions` throughout this tutorial.  If you don't have this namespace, you can create it with `kubectl create namespace actions`. **You only need to do this once per cluster.**
+The scripts in this repo will use a k8s namespace called `actions`.  If this namespace is not available it will be created for you.
 
-1. Create a namespace called `actions` if it does not exist.  You can list your available namespaces with `kubectl get namespaces`.  You can create this namespace with `kubectl create namespace actions`.
-
-2. Create a [Personal Access Token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line). From the [documentation](https://developer.github.com/v3/actions/self_hosted_runners/), "Access tokens require repo scope for private repos and public_repo scope for public repos".  **Note: you should only have to do this once per cluster.  You should use a service account, not a personal account as this will be used to register your runner with your repositories.**  Store your PAT in an enviornment variable named `ACTIONS_PAT`.  You can do this in the terminal like so:
+1. Create a [Personal Access Token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line). From the [documentation](https://developer.github.com/v3/actions/self_hosted_runners/), "Access tokens require repo scope for private repos and public_repo scope for public repos".  **Note: you should only have to do this once per cluster.  You should use a service account, not a personal account as this will be used to register your runner with your repositories.**  Store your PAT in an enviornment variable named `ACTIONS_PAT`.  You can do this in the terminal like so:
 
     > export ACTIONS_PAT={YOUR_PAT}
 
-3. Apply these secrets to your K8s cluster, along with role bindings to the `actions` namespace:
+2. Apply these secrets to your K8s cluster, along with role bindings to the `actions` namespace:
 
-    > envsubst "\$ACTIONS_PAT" < k8s_setup/authorize.yml | kubectl -n actions apply -f -
+    > ./k8s_setup/setup.sh
 
 
 ##  3. Deploy A Self Hosted Runner

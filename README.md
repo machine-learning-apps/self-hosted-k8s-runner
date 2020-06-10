@@ -69,21 +69,24 @@ You will need a cli tool called `envsubst`.  You can [install envsubst](https://
 
 The scripts in this repo will use a k8s namespace called `actions`.  If this namespace is not available it will be created for you.
 
-1. Create a [Personal Access Token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line). From the [documentation](https://developer.github.com/v3/actions/self_hosted_runners/), "Access tokens require repo scope for private repos and public_repo scope for public repos".  **Note: you should only have to do this once per cluster.  You should use a service account, not a personal account as this will be used to register your runner with your repositories.**  Store your PAT in an enviornment variable named `ACTIONS_PAT`.  You can do this in the terminal like so:
+1. Create a [Personal Access Token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line). From the [documentation](https://developer.github.com/v3/actions/self_hosted_runners/), "Access tokens require repo scope for private repos and public_repo scope for public repos".  **You should use a service account, not a personal account as this will be used to register your runner with your repositories.  Finally, you should only do this if you are confident that your kubernetes cluster is secure as anyone with access to your cluster will be able to obtain this token.**  
+
+Store your PAT in an enviornment variable named `ACTIONS_PAT`.  You can do this in the terminal like so:
 
     > export ACTIONS_PAT={YOUR_PAT}
 
-2. Apply these secrets to your K8s cluster, along with role bindings to the `actions` namespace:
+2. Store these secrets to your K8s cluster, along with role bindings to the `actions` namespace:
 
     > ./k8s_setup/setup.sh
 
 
-    By default, this script will not update secrets if one already exists in your cluster.  You can override this with a `--force-update` flag:
+    By default, this script will not update secrets for self-hosted runners if one already exists in your cluster.  You can override this with a `--force-update` flag:
 
     > ./k8s_setup/setup.sh --force-update
 
-##  3. Deploy A Self Hosted Runner
+##  3. Deploy A Self Hosted Runner For A GitHub Repo
 
+You must perform the below steps for each repository you want to bind self-hosted runners to.  While it is possible to create [a self-hosted runner for an organization](https://github.blog/changelog/2020-04-22-github-actions-organization-level-self-hosted-runners/), the tools in this repo currently only support repo-level self hosted runners.  
 
 ###  3.1. Set Environment Variables
 

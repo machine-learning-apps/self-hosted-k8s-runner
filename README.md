@@ -34,7 +34,7 @@ ___
 
 # Optional: Customize Your Self Hosted Runner
 
-**Note: you only need to do this if you wish to customize your Actions runner.  Otherwhise, you can proceed to step 2**. I
+**Note: you only need to do this if you wish to customize your Actions runner.**
 
 **We have a pre-built Docker image hosted at [github/k8s-actions-runner](https://hub.docker.com/r/github/k8s-actions-runner)**, with the following additional dependencies installed:
 

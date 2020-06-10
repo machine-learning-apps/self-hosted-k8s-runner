@@ -27,7 +27,7 @@ jobs:
         echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
         docker push $IMAGE_NAME:latest
         docker push $IMAGE_NAME:$GH_RUNNER_VERSION
-      with:
+      env:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
 

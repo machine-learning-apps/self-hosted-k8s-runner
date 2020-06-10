@@ -1,8 +1,12 @@
-name: Test
+name: Update-Image
 on: push
+  branches:    
+  - master
 
 env:
+  # find latest version at https://github.com/actions/runner/releases/
   GH_RUNNER_VERSION: "2.263.0"
+  IMAGE_NAME: github/k8s-actions-runner
 
 jobs:     
   build-site:
@@ -15,9 +19,15 @@ jobs:
 
     - name: build container
       run: | 
-        docker build --build-arg GH_RUNNER_VERSION=$GH_RUNNER_VERSION -t github/k8s-actions-runner:latest -t github/k8s-actions-runner:$GH_RUNNER_VERSION .
+        docker build --build-arg GH_RUNNER_VERSION=$GH_RUNNER_VERSION -t $IMAGE_NAME:latest -t $IMAGE_NAME:$GH_RUNNER_VERSION .
 
     - name: push-container
       run: |
-        echo "todo"
+        echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
+        docker push $IMAGE_NAME:latest
+        docker push $IMAGE_NAME:$GH_RUNNER_VERSION
+      with:
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+
  

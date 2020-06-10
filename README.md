@@ -36,11 +36,7 @@ ___
 
 **Note: you only need to do this if you wish to customize your Actions runner.**
 
-**We have a pre-built Docker image hosted at [github/k8s-actions-runner](https://hub.docker.com/r/github/k8s-actions-runner)**, with the following additional dependencies installed:
-
-- [gettext-base](https://www.gnu.org/software/gettext/) for [envsubst](https://manpages.debian.org/stretch/gettext-base/envsubst.1.en.html)
-- [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/)
-- [Argo CLI](https://github.com/argoproj/argo/releases)
+**We have a pre-built Docker image hosted at [github/k8s-actions-runner](https://hub.docker.com/r/github/k8s-actions-runner)**, that uses docker-in-docker to orchestrate all the necessary dependencies for a self hosted runner.
 
 This image is [tagged](https://hub.docker.com/r/github/k8s-actions-runner/tags) with the version of the [actions/runner release](https://github.com/actions/runner/releases/).  For example, the image ` github/k8s-actions-runner:2.263.0` corresponds to the [actions/runner v2.263.0 release](https://github.com/actions/runner/releases/tag/v2.263.0).
 

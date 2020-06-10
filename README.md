@@ -28,7 +28,7 @@
 
 This repository shows **how to run a self hosted runner in a Kubernetes cluster**, which is useful if your Actions runner needs to create resources or update deployments.  This is also helpful for integration with cloud-native machine learning pipelines with projects like [Kubeflow](https://www.kubeflow.org/) or [Argo](https://argoproj.github.io/).  
 
-This project inherits from [github/self-hosted-runners-anthos](https://github.com/github-developer/self-hosted-runners-anthos).  We use docker-in-docker in order to accomplish instantiation of a self-hosted runner on kubernetes.
+This project builds upon [github-developer/self-hosted-runners-anthos](https://github.com/github-developer/self-hosted-runners-anthos).  We use docker-in-docker in order to accomplish instantiation of a self-hosted runner on kubernetes.
 
 ___
 
@@ -77,6 +77,10 @@ The scripts in this repo will use a k8s namespace called `actions`.  If this nam
 
     > ./k8s_setup/setup.sh
 
+
+    By default, this script will not update secrets if one already exists in your cluster.  You can override this with a `--force-update` flag:
+
+    > ./k8s_setup/setup.sh --force-update
 
 ##  3. Deploy A Self Hosted Runner
 

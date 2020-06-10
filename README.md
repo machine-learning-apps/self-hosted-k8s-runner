@@ -11,7 +11,7 @@
 - [Setup Instructions](#setup-instructions)
 	- [1. Install `envsubst`](#1-install-envsubst)
 	- [2. Setup Your K8s Cluster For Actions](#2-setup-your-k8s-cluster-for-actions)
-	- [3. Deploy A Self Hosted Runner](#3-deploy-a-self-hosted-runner)
+	- [3. Deploy A Self Hosted Runner For A GitHub Repo](#3-deploy-a-self-hosted-runner-for-a-github-repo)
 		- [3.1. Set Environment Variables](#31-set-environment-variables)
 			- [3.1.1. Required Varaibles](#311-required-varaibles)
 			- [3.1.2. Optional Variables](#312-optional-variables)

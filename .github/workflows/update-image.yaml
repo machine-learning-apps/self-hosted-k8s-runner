@@ -1,7 +1,8 @@
 name: Update-Image
-on: push
-  branches:    
-    - master
+on: 
+  push:
+    branches:
+      - master
 
 env:
   # find latest version at https://github.com/actions/runner/releases/

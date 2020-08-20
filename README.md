@@ -75,7 +75,7 @@ Store your PAT in an environment variable named `ACTIONS_PAT`.  You can do this 
 
     > export ACTIONS_PAT=<YOUR_PAT>
 
-2. Store these secrets on your K8s cluster, along with role bindings on the `actions` namespace:
+2. Store these secrets on your K8s cluster, along with role bindings in the `actions` namespace:
 
     > ./k8s_setup/setup.sh
 

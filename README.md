@@ -71,7 +71,7 @@ The scripts in this repo will use a k8s namespace called `actions`.  If this nam
 
 1. Create a [Personal Access Token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line). From the [documentation](https://developer.github.com/v3/actions/self_hosted_runners/), "Access tokens require repo scope for private repos and public_repo scope for public repos".  **You should use a service account, not a personal account as this will be used to register your runner with your repositories.  Finally, you should only do this if you are confident that your Kubernetes cluster is secure as anyone with access to your cluster will be able to obtain this token.**  
 
-Store your PAT in an enviornment variable named `ACTIONS_PAT`.  You can do this in the terminal like so:
+Store your PAT in an environment variable named `ACTIONS_PAT`.  You can do this in the terminal like so:
 
     > export ACTIONS_PAT=<YOUR_PAT>
 

@@ -95,7 +95,7 @@ You must set the below variables before deploying your self-hosted Actions runne
 ####  3.1.1. Required Variables
 
 - `ACTIONS_GITHUB_REPO`:
-  - this is the GitHub repository in the form of orginization/repository.  For example, a valid value is `github/semantic` which refers to [this repo](https://github.com/github/semantic).
+  - this is the GitHub repository in the form of organization/repository.  For example, a valid value is `github/semantic` which refers to [this repo](https://github.com/github/semantic).
 
 ####  3.1.2. Optional Variables
 - `ACTIONS_IMAGE_NAME`: (optional)

@@ -28,7 +28,7 @@
 
 This repository shows **how to run a self-hosted runner in a Kubernetes cluster**, which is useful if your Actions runner needs to create resources or update deployments.  
 
-This project builds upon [github-developer/self-hosted-runners-anthos](https://github.com/github-developer/self-hosted-runners-anthos), which uses docker-in-docker in order to  instantiate a self-hosted runner on kubernetes.
+This project builds upon [github-developer/self-hosted-runners-anthos](https://github.com/github-developer/self-hosted-runners-anthos), which uses docker-in-docker in order to  instantiate a self-hosted runner on Kubernetes.
 ___
 
 # Optional: Customize Your Self-Hosted Runner
@@ -52,9 +52,9 @@ ___
 # Setup Instructions
 
 **Prerequisites**: These instructions assume:
-  - You have [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) installed and configured to access a kubernetes cluster where you wish to instantiate self-hosted runners.
+  - You have [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) installed and configured to access a Kubernetes cluster where you wish to instantiate self-hosted runners.
   - You have sufficent permissions to create resources (namespaces, deployments, secrets, etc.) in this cluster.
-  - Familiarity with kubernetes, especially with debugging workloads and inspecting logs.
+  - Familiarity with Kubernetes, especially with debugging workloads and inspecting logs.
 
 ##  1. Install `envsubst`
 
@@ -69,7 +69,7 @@ You will need a cli tool called `envsubst`.  You can [install envsubst](https://
 
 The scripts in this repo will use a k8s namespace called `actions`.  If this namespace is not available it will be created for you.
 
-1. Create a [Personal Access Token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line). From the [documentation](https://developer.github.com/v3/actions/self_hosted_runners/), "Access tokens require repo scope for private repos and public_repo scope for public repos".  **You should use a service account, not a personal account as this will be used to register your runner with your repositories.  Finally, you should only do this if you are confident that your kubernetes cluster is secure as anyone with access to your cluster will be able to obtain this token.**  
+1. Create a [Personal Access Token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line). From the [documentation](https://developer.github.com/v3/actions/self_hosted_runners/), "Access tokens require repo scope for private repos and public_repo scope for public repos".  **You should use a service account, not a personal account as this will be used to register your runner with your repositories.  Finally, you should only do this if you are confident that your Kubernetes cluster is secure as anyone with access to your cluster will be able to obtain this token.**  
 
 Store your PAT in an enviornment variable named `ACTIONS_PAT`.  You can do this in the terminal like so:
 

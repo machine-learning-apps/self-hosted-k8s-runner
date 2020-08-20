@@ -6,12 +6,12 @@
 
 - [Create A Self-Hosted Actions Runner On Your Kubernetes Cluster](#create-a-self-hosted-actions-runner-on-your-kubernetes-cluster)
 - [Motivation](#motivation)
-- [Optional: Customize Your Self Hosted Runner](#optional-customize-your-self-hosted-runner)
+- [Optional: Customize Your Self-Hosted Runner](#optional-customize-your-self-hosted-runner)
 - [Refresh Docker Image](#refresh-docker-image)
 - [Setup Instructions](#setup-instructions)
 	- [1. Install `envsubst`](#1-install-envsubst)
 	- [2. Setup Your K8s Cluster For Actions](#2-setup-your-k8s-cluster-for-actions)
-	- [3. Deploy A Self Hosted Runner For A GitHub Repo](#3-deploy-a-self-hosted-runner-for-a-github-repo)
+	- [3. Deploy A Self-Hosted Runner For A GitHub Repo](#3-deploy-a-self-hosted-runner-for-a-github-repo)
 		- [3.1. Set Environment Variables](#31-set-environment-variables)
 			- [3.1.1. Required Varaibles](#311-required-varaibles)
 			- [3.1.2. Optional Variables](#312-optional-variables)
@@ -22,20 +22,20 @@
 
 # Motivation
 
-[GitHub Actions](https://github.com/features/actions) allow you to use [self hosted runners](https://help.github.com/en/actions/hosting-your-own-runners/about-self-hosted-runners).  From the docs:
+[GitHub Actions](https://github.com/features/actions) allow you to use [self-hosted runners](https://help.github.com/en/actions/hosting-your-own-runners/about-self-hosted-runners).  From the docs:
 
 > Self-hosted runners offer more control of hardware, operating system, and software tools than GitHub-hosted runners provide. With self-hosted runners, you can choose to create a custom hardware configuration with more processing power or memory to run larger jobs, install software available on your local network, and choose an operating system not offered by GitHub-hosted runners. Self-hosted runners can be physical, virtual, in a container, on-premises, or in a cloud.
 
-This repository shows **how to run a self hosted runner in a Kubernetes cluster**, which is useful if your Actions runner needs to create resources or update deployments.  
+This repository shows **how to run a self-hosted runner in a Kubernetes cluster**, which is useful if your Actions runner needs to create resources or update deployments.  
 
 This project builds upon [github-developer/self-hosted-runners-anthos](https://github.com/github-developer/self-hosted-runners-anthos), which uses docker-in-docker in order to  instantiate a self-hosted runner on kubernetes.
 ___
 
-# Optional: Customize Your Self Hosted Runner
+# Optional: Customize Your Self-Hosted Runner
 
 **Note: you only need to do this if you wish to customize your Actions runner.**
 
-**We have a pre-built Docker image hosted at [github/k8s-actions-runner](https://hub.docker.com/r/github/k8s-actions-runner)**, that uses docker-in-docker to orchestrate all the necessary dependencies for a self hosted runner.
+**We have a pre-built Docker image hosted at [github/k8s-actions-runner](https://hub.docker.com/r/github/k8s-actions-runner)**, that uses docker-in-docker to orchestrate all the necessary dependencies for a self-hosted runner.
 
 This image is [tagged](https://hub.docker.com/r/github/k8s-actions-runner/tags) with the version of the [actions/runner release](https://github.com/actions/runner/releases/).  For example, the image ` github/k8s-actions-runner:2.263.0` corresponds to the [actions/runner v2.263.0](https://github.com/actions/runner/releases/tag/v2.263.0) release.  Furthermore, the latest release is also tagged with `latest`.
 
@@ -84,9 +84,9 @@ Store your PAT in an enviornment variable named `ACTIONS_PAT`.  You can do this 
 
     > ./k8s_setup/setup.sh --force-update
 
-##  3. Deploy A Self Hosted Runner For A GitHub Repo
+##  3. Deploy A Self-Hosted Runner For A GitHub Repo
 
-You must perform the below steps for each repository you want to bind self-hosted runners to.  While it is possible to create [a self-hosted runner for an organization](https://github.blog/changelog/2020-04-22-github-actions-organization-level-self-hosted-runners/), the tools in this repo currently only support repo-level self hosted runners.  
+You must perform the below steps for each repository you want to bind self-hosted runners to.  While it is possible to create [a self-hosted runner for an organization](https://github.blog/changelog/2020-04-22-github-actions-organization-level-self-hosted-runners/), the tools in this repo currently only support repo-level self-hosted runners.  
 
 ###  3.1. Set Environment Variables
 

@@ -13,7 +13,7 @@
 	- [2. Setup Your K8s Cluster For Actions](#2-setup-your-k8s-cluster-for-actions)
 	- [3. Deploy A Self-Hosted Runner For A GitHub Repo](#3-deploy-a-self-hosted-runner-for-a-github-repo)
 		- [3.1. Set Environment Variables](#31-set-environment-variables)
-			- [3.1.1. Required Varaibles](#311-required-varaibles)
+			- [3.1.1. Required Variables](#311-required-variables)
 			- [3.1.2. Optional Variables](#312-optional-variables)
 		- [3.2. Deploy](#32-deploy)
 	- [Delete An Actions Runner](#delete-an-actions-runner)
@@ -92,7 +92,7 @@ You must perform the below steps for each repository you want to bind self-hoste
 
 You must set the below variables before deploying your self-hosted Actions runner:
 
-####  3.1.1. Required Varaibles
+####  3.1.1. Required Variables
 
 - `ACTIONS_GITHUB_REPO`:
   - this is the GitHub repository in the form of orginization/repository.  For example, a valid value is `github/semantic` which refers to [this repo](https://github.com/github/semantic).

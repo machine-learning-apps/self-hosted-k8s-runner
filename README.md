@@ -10,7 +10,7 @@
 - [Refresh Docker Image](#refresh-docker-image)
 - [Setup Instructions](#setup-instructions)
 	- [1. Install `envsubst`](#1-install-envsubst)
-	- [2. Setup Your K8s Cluster For Actions](#2-setup-your-k8s-cluster-for-actions)
+	- [2. Set Up Your K8s Cluster For Actions](#2-set-up-your-k8s-cluster-for-actions)
 	- [3. Deploy A Self-Hosted Runner For A GitHub Repo](#3-deploy-a-self-hosted-runner-for-a-github-repo)
 		- [3.1. Set Environment Variables](#31-set-environment-variables)
 			- [3.1.1. Required Variables](#311-required-variables)
@@ -63,9 +63,9 @@ You will need a cli tool called `envsubst`.  You can [install envsubst](https://
 - on mac: `brew install gettext`
 - on ubuntu: `apt-get install gettext-base`
 
-##  2. Setup Your K8s Cluster For Actions
+##  2. Set Up Your K8s Cluster For Actions
 
-**If you are sharing a cluster with others that have already setup a self-hosted Actions runner you can probably skip this step.**
+**If you are sharing a cluster with others that have already set up a self-hosted Actions runner you can probably skip this step.**
 
 The scripts in this repo will use a k8s namespace called `actions`.  If this namespace is not available it will be created for you.
 

@@ -15,7 +15,7 @@ check_env "ACTIONS_PAT"
 if kubectl get namespaces actions > /dev/null; then
     echo "namespaces 'actions' already exists."
 else
-    kubectl create namespaces actions
+    kubectl create namespace actions
 fi
 
 
